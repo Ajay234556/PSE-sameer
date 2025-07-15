@@ -1,9 +1,6 @@
 import {
   Box,
   Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
   Flex,
   Heading,
   IconButton,
@@ -85,12 +82,12 @@ const StatusColumn = ({
                       ID: {product.id}
                     </Text>
                   </Box>
-                  {/* <IconButton
-                    icon={<BsThreeDotsVertical />}
-                    aria-label="More"
+                  <IconButton aria-label="More"
                     size="xs"
                     variant="ghost"
-                  /> */}
+                  >
+                    <BsThreeDotsVertical />
+                  </IconButton>
                 </Flex>
               </Card.Header>
 
