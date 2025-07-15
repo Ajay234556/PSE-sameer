@@ -25,7 +25,7 @@ const Sidebar = () =>{
     >
         <Flex direction="column">
             <Text fontSize="xl" fontWeight="bold" mb="6">
-                ProductHub
+                ProPM
             </Text>
 
             <VStack align="stretch" >
@@ -40,7 +40,7 @@ const Sidebar = () =>{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '10px',
-                    fontWeight: isActive ? '600' : '500',
+                    fontWeight: isActive ? '600' : '400',
                     color: isActive ? '#2b6cb0' : '#2d3748',
                     textDecoration: 'none',
                     })}
