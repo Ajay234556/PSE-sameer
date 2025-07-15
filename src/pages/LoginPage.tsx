@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Button,
@@ -7,9 +9,9 @@ import {
   IconButton,
   Input,
   InputGroup,
-  Tabs,
   Field,
   Stack,
+  SegmentGroup,
   Text,
 } from '@chakra-ui/react';
 import { FaLock, FaEnvelope, FaEye, FaEyeSlash, FaMobileAlt } from 'react-icons/fa';
@@ -18,7 +20,7 @@ import { useColorModeValue } from '@/components/ui/color-mode';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-//   const [tab, setTab] = useState("password");
+  const [tab, setTab] = useState<string | null>("password");
   const togglePassword = () => setShowPassword(!showPassword);
 
   const cardBg = useColorModeValue('white', 'gray.800');
@@ -43,70 +45,67 @@ const LoginPage = () => {
           Sign in to your account to continue
         </Text>
 
-        <Tabs.Root lazyMount unmountOnExit defaultValue="tab-1" value={"password"} >
-          <Tabs.List bg="gray.100" p={1} borderRadius="md" mb={6}>
-            <Tabs.Trigger value="password">
-              <Flex align="center" gap={2}>
-                <Icon as={FaLock} /> Password
-              </Flex>
-            </Tabs.Trigger>
-            <Tabs.Trigger value="otp">
-              <Flex align="center" gap={2}>
-                <Icon as={FaMobileAlt} /> OTP
-              </Flex>
-            </Tabs.Trigger>
-            <Tabs.Indicator />
-          </Tabs.List>
+        <SegmentGroup.Root value={tab} onValueChange={(e)=>setTab(e.value)} mb={6} w={"100%"} p={1}>
+          <SegmentGroup.Indicator />
+          <SegmentGroup.Items w={"100%"}
+            items={[
+              { value: 'password', label: <Flex align="center" w={"50%"}  gap={2}>
+                <Icon as={FaLock} size={"sm"}/> Password</Flex> },
+              { value: 'otp', label: <Flex align="center" w={"50%"} gap={2}><Icon as={FaMobileAlt} size={"sm"}/> OTP</Flex> },
+            ]}
+          />
+        </SegmentGroup.Root>
 
-          <Tabs.Content value="password">
-            <Stack gap={4} maxW="sm">
-              <Field.Root>
-                <Field.Label>Email address</Field.Label>
-                <InputGroup startElement={<FaEnvelope color="gray.400" />}>
-                  <Input type="email" placeholder="Enter your email" />
-                </InputGroup>
-              </Field.Root>
+        {tab === "password" && (
+          <Stack gap={4} maxW="sm">
+            <Field.Root>
+              <Field.Label>Email address</Field.Label>
+              <InputGroup startElement={<FaEnvelope color="gray.400" />}>
+                <Input type="email" placeholder="Enter your email" />
+              </InputGroup>
+            </Field.Root>
 
-              <Field.Root>
-                <Field.Label>Password</Field.Label>
-                <InputGroup
-                  startElement={<FaLock color="gray.400" />}
-                  endElement={
-                    <IconButton aria-label="Toggle password visibility"
-                      variant="ghost"
-                      size="sm"
-                      onClick={togglePassword}>
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                    </IconButton>
-                  }
-                >
-                  <Input
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Enter your password"
-                  />
-                </InputGroup>
-              </Field.Root>
+            <Field.Root>
+              <Field.Label>Password</Field.Label>
+              <InputGroup
+                startElement={<FaLock color="gray.400" />}
+                endElement={
+                  <IconButton 
+                    aria-label="Toggle password visibility"
+                    variant="ghost"
+                    size="sm"
+                    onClick={togglePassword}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </IconButton>
+                }
+              >
+                <Input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="Enter your password"
+                />
+              </InputGroup>
+            </Field.Root>
 
-              <Button colorScheme="blue" w="full">
-                Sign in with Password
-              </Button>
-            </Stack>
-          </Tabs.Content>
+            <Button colorScheme="blue" w="full">
+              Sign in with Password
+            </Button>
+          </Stack>
+        )}
 
-          <Tabs.Content value="otp">
-            <Stack gap={4} maxW="sm">
-              <Field.Root>
-                <Field.Label>Mobile number</Field.Label>
-                <InputGroup startElement={<FaMobileAlt color="gray.400" />}>
-                  <Input type="tel" placeholder="Enter your mobile number" />
-                </InputGroup>
-              </Field.Root>
-              <Button colorScheme="blue" w="full">
-                Send OTP
-              </Button>
-            </Stack>
-          </Tabs.Content>
-        </Tabs.Root>
+        {tab === "otp" && (
+          <Stack gap={4} maxW="sm">
+            <Field.Root>
+              <Field.Label>Email</Field.Label>
+              <InputGroup startElement={<FaMobileAlt color="gray.400" />}>
+                <Input type="email" placeholder="Enter your email address" />
+              </InputGroup>
+            </Field.Root>
+            <Button colorScheme="blue" w="full">
+              Send OTP
+            </Button>
+          </Stack>
+        )}
       </Box>
     </Flex>
   );
