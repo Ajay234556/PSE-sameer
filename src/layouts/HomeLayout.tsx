@@ -10,7 +10,7 @@ const HomeLayout = () => {
             <Sidebar />
             <Box flex="1" bg="gray.50">
                 <Navbar />
-                <Box mt="16" px="6" py="4">
+                <Box ml={250} mt="16" px="6" py="4">
                     <Outlet />
                 </Box>
             </Box>
